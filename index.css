@@ -1,3 +1,55 @@
-h1{
-    color: blue;
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    /* background-color: cornflowerblue; */
+}
+
+.logo{
+    width: 12.5rem;
+}
+
+.nav-item > ul {
+    display: flex;
+    list-style-type: none;
+    font-size: 1.5rem;
+}
+.nav-item > ul > li {
+    padding: 0.75rem;
+    margin: 0.75rem;
+}
+
+.search{
+    padding: 5px;
+    margin: 5px;
+}
+
+.search > button{
+    margin-left: 5px;
+}
+
+.res-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.restaurant-card{
+    padding: 5px;
+    width: 13rem;
+    height: 24rem;
+    margin: 5px;
+}
+
+.restaurant-card:hover{
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.restaurant-card >h4 {
+    margin: 7px auto;
+}
+
+.res-logo{
+    width: 100%;
+    height: 10rem;
 }
