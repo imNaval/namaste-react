@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Namaste React with Akshay Saini Sir",
   "scripts": {
-    "start" : "parcel index.html",
-    "build" : "parcel build index.html",
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0"
   },
   "browserslist": [
     "last 2 version"

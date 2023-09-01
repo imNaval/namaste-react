@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
 import { SWIGGY_API } from "../utils/constants";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Body = () => {
 
@@ -17,7 +18,7 @@ const Body = () => {
         const data = await fetch(SWIGGY_API);
 
         const json = await data.json();
-        console.log(json);
+        // console.log(json);
 
         setResLists(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants);
         setFilteredList(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants);
@@ -43,7 +44,8 @@ const Body = () => {
 
             <div className="res-container">
                 {
-                    filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
+                    //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
+                    filteredList?.map(restaurant => <Link key={restaurant?.info?.id} to={"/restaurant/"+restaurant?.info?.id}><RestaurantCard resData={restaurant} /></Link>)
                 }
             </div>
         </div>
