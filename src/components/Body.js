@@ -4,6 +4,7 @@ import { restaurantData } from "../utils/mockData";
 import { SWIGGY_API } from "../utils/constants";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
 
@@ -26,6 +27,12 @@ const Body = () => {
     }
     // console.log(filteredList)
     // console.log("body render");
+
+    const onlineStatus = useOnlineStatus();
+    if(onlineStatus === false) return <>
+        <h1>It's look like you are offline!!!</h1>
+        <p>Please check your network connectivity...</p>
+    </>
     return (
         resLists?.length === 0 ? <Shimmer />
         :
