@@ -4,6 +4,7 @@ import useRestaurantMenu from '../utils/useRestaurantMenu';
 
 const RestaurantMenu = () => {
 
+    // debugger
     // const params = useParams();
     // console.log(params);
     const {resId} = useParams();
@@ -14,7 +15,7 @@ const RestaurantMenu = () => {
 
     const { name, costForTwoMessage, cuisines } = resInfo?.cards[0]?.card?.card?.info
     const {itemCards} = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
-    // console.log(itemCards)
+    console.log(itemCards)
 
   return (
     <div>

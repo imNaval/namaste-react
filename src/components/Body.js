@@ -36,20 +36,20 @@ const Body = () => {
     return (
         resLists?.length === 0 ? <Shimmer />
         :
-        <div className="body">
-            <div className="filter">
-                <input type="text" className="search-input" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
-                <button className="search-btn" onClick={()=>{
+        <div className="body mt-44">
+            <div className="filter m-4 p-4 flex justify-center">
+                <input type="text" className="p-2 m-4 border-2 border-solid border-black" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
+                <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={()=>{
                     const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase()) ));
                     setFilteredList(filteredRes)
                     // setResLists(filteredRes)
                 }} >search</button>
-                <button className="top-rated" onClick={() => {
+                <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
                     setFilteredList(restaurantData.filter(resData => resData?.info?.avgRating > 4))
                 }}>Top Rated Restaurants</button>
             </div>
 
-            <div className="res-container">
+            <div className="flex flex-wrap justify-center">
                 {
                     //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
                     filteredList?.map(restaurant => <Link style={{ color: "black", textDecoration: 'none'}} key={restaurant?.info?.id} to={"/restaurant/"+restaurant?.info?.id}>

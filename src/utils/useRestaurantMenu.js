@@ -3,9 +3,10 @@ import { MENU_API } from '../utils/constants';
 
 
 const useRestaurantMenu = (resId) => {
+    // debugger
     const [resInfo, setResInfo] = useState(null)
 
-    useEffect = (()=>{
+    useEffect(()=>{
 
         fetchData();
     }, [])
