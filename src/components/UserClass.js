@@ -20,14 +20,14 @@ class UserClass extends React.Component {
     // componentDidMount(){
     //     // console.log(this.props.name + " did mount")
     // }
-    // async componentDidMount(){
-    //     const data = await fetch("https://api.github.com/users/imNaval")
-    //     const json = await data.json()
+    async componentDidMount(){
+        const data = await fetch("https://api.github.com/users/imNaval")
+        const json = await data.json()
 
-    //     this.setState({
-    //         userInfo: json
-    //     })
-    // }
+        this.setState({
+            userInfo: json
+        })
+    }
 
     componentDidUpdate(prevProps, prevState){
         console.log(this.props.name + " did update")
@@ -37,13 +37,13 @@ class UserClass extends React.Component {
         }
     }
 
-    componentDidMount(){
-        console.log("component did mount")
+    // componentDidMount(){
+    //     console.log("component did mount")
 
-        this.myTimer = setInterval(()=>{
-            console.log("Namaste React")
-        }, 1000)
-    }
+    //     this.myTimer = setInterval(()=>{
+    //         console.log("Namaste React")
+    //     }, 1000)
+    // }
     componentWillUnmount(){
         console.log("component unmounted");
         clearInterval(this.myTimer)

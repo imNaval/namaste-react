@@ -19,4 +19,27 @@ const RestaurantCard = (props) => {
     )
 }
 
+export const withPromotedLabel = (RestaurantCard) => {
+    return (props) =>{
+        return (
+            <div>
+                <label>Promoted</label>
+                <RestaurantCard {...props}/>
+            </div>
+        )
+    }
+}
+
+export const withOfferLabel = (RestaurantCard) => {
+    return (props)=>{
+        const { header,subHeader } = props?.resData?.info?.aggregatedDiscountInfoV3
+        return (
+            <div>
+                <label className="absolute p-2 ml-12 mt-32 text-lg font-extrabold text-white bg-gray-400 rounded-lg">{header} {subHeader}</label>
+                <RestaurantCard {...props} />
+            </div>
+        )
+    }
+}
+
 export default RestaurantCard;

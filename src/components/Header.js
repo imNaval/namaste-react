@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { LOGO_URL } from '../utils/constants'
 import logo from "../../public/foodLogo.png"
 import useOnlineStatus from '../utils/useOnlineStatus'
+import UserContext from '../utils/UserContext'
 
 const Header = () => {
 
@@ -10,8 +11,10 @@ const Header = () => {
 
     const onlineStatus = useOnlineStatus();
 
+    const { loggedInUser } = useContext(UserContext);
+
     return (
-        <div className="header fixed top-0 left-0 right-0 flex justify-between bg-pink-50 shadow-md sm:bg-yellow-50 lg:bg-blue-50">
+        <div className="header fixed z-50 top-0 left-0 right-0 flex justify-between bg-pink-50 shadow-md sm:bg-yellow-50 lg:bg-blue-50">
             <div className="logo-container">
                 <img
                     className="w-40"
@@ -35,6 +38,7 @@ const Header = () => {
                             userStatus === "Login" ? setUserStatus("Logout") : setUserStatus("Login");
                         }}
                     >{userStatus}</button>
+                    <li className='px-4'>User : { userStatus === "Login" ? "Default-User" : loggedInUser}</li>
                 </ul>
             </div>
         </div>

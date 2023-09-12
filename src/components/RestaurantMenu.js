@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Shimmer from './Shimmer';
 import useRestaurantMenu from '../utils/useRestaurantMenu';
+import RestaurantCategory from './RestaurantCategory';
 
 const RestaurantMenu = () => {
 
     // debugger
     // const params = useParams();
     // console.log(params);
+
+    const [showIndex, setShowIndex] = useState(null)
+
     const {resId} = useParams();
 
     const resInfo = useRestaurantMenu(resId);
@@ -15,21 +20,24 @@ const RestaurantMenu = () => {
 
     const { name, costForTwoMessage, cuisines } = resInfo?.cards[0]?.card?.card?.info
     const {itemCards} = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
-    console.log(itemCards)
+    // console.log(itemCards)
+
+    const categories = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c?.card?.card?.["@type"].includes(".ItemCategory")) //there is also sub-category so we need to handle it .. latter i will do it ********
+    // console.log(categories)
 
   return (
-    <div>
-        <h2>{name}</h2>
-        <p>{cuisines.join(', ')} : {costForTwoMessage}</p>
+    <div className='mt-44 text-center'>
+        <h2 className='font-bold text-2xl my-6'>{name}</h2>
+        <p className='font-bold text-md'>{cuisines.join(', ')} : {costForTwoMessage}</p>
+        {
+            categories.map((category, index) => <RestaurantCategory 
+                key={category.card.card.title} 
+                data={category?.card?.card} 
+                showItem = {index == showIndex ? true : false}
+                setShowIndex = {()=> setShowIndex(prev => prev===index ? null : index)}
+            />)
+        }
 
-        <h3>Menu</h3>
-        <ul>
-            {/* <li>{itemCards[0]?.card?.info?.name}</li> */}
-            {
-                itemCards?.map((itemCard, index)=> <li key={index}>{itemCard?.card?.info?.name} : Rs. {itemCard?.card?.info?.price/100 || itemCard?.card?.info?.defaultPrice/100}</li>)
-            }
-        </ul>
-        
         {/* <div className='menuItems'>
             {
                 itemCards.map((itemCard, index)=> (
