@@ -1,10 +1,12 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { LOGO_URL } from '../utils/constants'
-import logo from "../../public/foodLogo.png"
+//import logo from "../../public/foodLogo.png"
 import useOnlineStatus from '../utils/useOnlineStatus'
 import UserContext from '../utils/UserContext'
-import { useSelector } from 'react-redux/es/hooks/useSelector'
+// import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { useSelector } from 'react-redux'
+
 
 const Header = () => {
 
@@ -23,9 +25,9 @@ const Header = () => {
                 <img
                     className="w-40"
                     alt="logo"
-                    // src={LOGO_URL}
+                    src={LOGO_URL}
                     // src="../../public/foodLogo.png" & src="/public/foodLogo.png" << these both not work like this
-                    src={logo}
+                    // src={logo}
                 />
             </div>
 

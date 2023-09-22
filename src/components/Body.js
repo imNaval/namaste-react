@@ -45,12 +45,12 @@ const Body = () => {
             :
             <div className="body mt-44">
                 <div className="filter m-4 p-4 flex justify-center">
-                    <input type="text" className="p-2 m-4 border-2 border-solid border-black" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
+                    <input data-testid="searchInput" type="text" className="p-2 m-4 border-2 border-solid border-black" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
                     <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
                         const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
                         setFilteredList(filteredRes)
                         // setResLists(filteredRes)
-                    }} >search</button>
+                    }} >Search</button>
                     <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
                         setFilteredList(restaurantData.filter(resData => resData?.info?.avgRating > 4))
                     }}>Top Rated Restaurants</button>

@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux/es/hooks/useSelector";
+// import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import MenuItemList from "./MenuItemList";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../utils/cartSlice";
