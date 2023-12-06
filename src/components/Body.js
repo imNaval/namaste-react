@@ -1,7 +1,7 @@
 import RestaurantCard, { withOfferLabel, withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
-import { SWIGGY_API } from "../utils/constants";
+import { SWIGGY_API, corsproxy } from "../utils/constants";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -23,7 +23,7 @@ const Body = () => {
         fetchData();
     }, []);
     const fetchData = async () => {
-        const data = await fetch(SWIGGY_API);
+        const data = await fetch(corsproxy + SWIGGY_API);
 
         const json = await data.json();
         // console.log(json);
