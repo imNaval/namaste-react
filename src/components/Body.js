@@ -27,9 +27,9 @@ const Body = () => {
 
         const json = await data.json();
         // console.log(json);
-
-        setResLists(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants);
-        setFilteredList(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+                                    //2 -> 5
+        setResLists(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+        setFilteredList(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
         // setFilteredList(resLists)  //why this will not work?
     }
     // console.log(filteredList)
@@ -52,7 +52,7 @@ const Body = () => {
                         // setResLists(filteredRes)
                     }} >Search</button>
                     <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
-                        setFilteredList(restaurantData.filter(resData => resData?.info?.avgRating > 4))
+                        setFilteredList(resLists.filter(resData => resData?.info?.avgRating > 4))
                     }}>Top Rated Restaurants</button>
 
                     {/* <div className="p-2 my-4"><label>User Name : </label><input type="text" onChange={(e) => setUserName(e.target.value)} /></div> */}
