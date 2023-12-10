@@ -1,7 +1,7 @@
 import RestaurantCard, { withOfferLabel, withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
-import { API_END, API_START, SWIGGY_API, corsproxy, payload } from "../utils/constants";
+import { API_END, API_START, SWIGGY_API, UNSERVICEABLE_ERROR, corsproxy, payload } from "../utils/constants";
 import { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -50,8 +50,9 @@ const Body = () => {
             let args = arguments
             let Content = this
             timer = setTimeout(()=>{
-                // func.apply(Content, args)
-                resLists?.length > 0 && func.apply(Content, args)
+                // console.log("hello ", resLists?.length, filteredList?.length)
+                func.apply(Content, args)
+                // resLists?.length > 0 && func.apply(Content, args)
             }, delay)
         }
     }
@@ -94,6 +95,7 @@ const Body = () => {
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, []);
+
     const fetchData = async () => {
         url = `${API_START}lat=${location?.coords?.latitude}&lng=${location?.coords?.longitude}&${API_END}`
         // console.log(location)
@@ -155,25 +157,10 @@ const Body = () => {
     if(resLists?.length === 0) return <Shimmer />
     return (
         !resLists ? <div className="flex justify-center">
-            <img src="https://cdn0.desidime.com/attachments/photos/936479/medium/Screenshot20230919-002343.png?1695064751" alt="unservisable"/>
+            <img src={UNSERVICEABLE_ERROR} alt="unservisable"/>
         </div>
             :
-            <div className="body mt-44">
-            {console.log(resLists ? "A" : "B")}
-                <div className="filter m-4 p-4 flex justify-center">
-                    <input data-testid="searchInput" type="text" className="p-2 m-4 border-2 border-solid border-black rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
-                    <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
-                        const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
-                        setFilteredList(filteredRes)
-                        // setResLists(filteredRes)
-                    }} >Search</button>
-                    <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
-                        setFilteredList(resLists.filter(resData => resData?.info?.avgRating > 4))
-                    }}>Top Rated Restaurants</button>
-
-                    {/* <div className="p-2 my-4"><label>User Name : </label><input type="text" onChange={(e) => setUserName(e.target.value)} /></div> */}
-                </div>
-
+            <div className="body mt-48">
                 <div className="m-8">
                     <h2 className="text-2xl font-bold mb-4">What's on your mind?</h2>
                     <RecipesCard resData={recipes} />
@@ -184,8 +171,20 @@ const Body = () => {
                     <MiniResCard resData={topRestaurantChain}/>
                 </div>
 
-                <hr className="mt-12 mb-4 mx-8"></hr>
-                <h3 className="font-bold text-lg ml-8 sm:ml-16 md:ml-32">Restaurants with online food delivery</h3>
+                <hr className="mt-16 mb-4 mx-8"></hr>
+                <div className="filter m-4 p-4 flex justify-center">
+                    <input data-testid="searchInput" type="text" className="p-2 m-4 w-[24rem] border-2 border-solid border-gray-500 rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
+                    <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
+                        const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
+                        setFilteredList(filteredRes)
+                    }} >Search</button>
+                    <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
+                        setFilteredList(resLists.filter(resData => resData?.info?.avgRating > 4))
+                    }}>Top Rated Restaurants</button>
+                </div>
+
+                <hr className="mt-8 mb-4 mx-8"></hr>
+                <h3 className="font-bold text-2xl ml-8 sm:ml-16 md:ml-24">Restaurants with online food delivery</h3>
                 <div className="flex flex-wrap justify-center" ref={resContainerRef}>
                     {
                         //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)

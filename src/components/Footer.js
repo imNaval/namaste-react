@@ -1,5 +1,6 @@
 import React from 'react'
 import { LOGO_URL } from '../utils/constants'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -14,11 +15,11 @@ const Footer = () => {
         </div>
         <div>
             <h2 className='font-bold text-lg mb-8'>Company</h2>
-            <p>About Me</p>
+            <p><Link to='/about'>About Me</Link></p>
             <p>Visit my personal website to know more about me </p>
         </div>
         <div>
-            <h2 className='font-bold text-lg mb-8'>Contact Us</h2>
+            <h2 className='font-bold text-lg mb-8'><Link to="/contact">Contact Us</Link></h2>
             <p>Say Hello </p>
             <p>Mobile - 1234567890</p>
             <p>Udaipur, Rajasthan</p>

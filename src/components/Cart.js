@@ -19,7 +19,7 @@ const Cart = () =>{
                 {
                     cartItems.length === 0 && <h1>Cart is empty, Add Item to cart</h1>
                 }
-                <MenuItemList items={cartItems} />
+                <MenuItemList items={cartItems} addBtn={false} />
             </div>
         </div>
     )

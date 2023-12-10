@@ -30,7 +30,7 @@ class UserClass extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState){
-        console.log(this.props.name + " did update")
+        // console.log(this.props.name + " did update")
         // console.log(prevState)
         if(this.state.count !== prevState.count){
             // console.log("count updated")
@@ -45,7 +45,7 @@ class UserClass extends React.Component {
     //     }, 1000)
     // }
     componentWillUnmount(){
-        console.log("component unmounted");
+        // console.log("component unmounted");
         clearInterval(this.myTimer)
     }
 
