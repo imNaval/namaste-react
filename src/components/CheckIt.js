@@ -9,7 +9,7 @@ const checkIt = ( Component ) => {
     return (props) => {
         const {resData} = props;
         // console.log(resData)
-        const length = resData.length;
+        const length = resData?.length;
         // const length = resData?.length || recipes?.length;
 
         const [currentIndex, setCurrentIndex] = useState(0);

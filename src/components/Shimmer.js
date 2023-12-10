@@ -1,15 +1,15 @@
 const Shimmer = () =>{
     return (
-        <div className="simmer-container">
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
-            <div className="shimmer-cart"></div>
+        <div className="flex flex-wrap justify-center">
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-300"></div>
+            {/* <div className="m-4 p-4 w-[17rem] h-96 rounded-lg bg-gray-100"></div> */}
         </div>
     )
 }

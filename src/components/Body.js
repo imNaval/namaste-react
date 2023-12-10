@@ -1,8 +1,8 @@
 import RestaurantCard, { withOfferLabel, withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
-import { SWIGGY_API, corsproxy, payload } from "../utils/constants";
-import { useState, useEffect, useContext } from "react";
+import { API_END, API_START, SWIGGY_API, corsproxy, payload } from "../utils/constants";
+import { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
@@ -15,7 +15,11 @@ import DataFooter from "./DataFooter";
 
 const Body = () => {
 
+    const [location, setLocation] = useState(null)
     // const { loggedInUser, setUserName } = useContext(UserContext)
+    const resContainerRef = useRef(null)
+    const footerDataRef = useRef(null)
+    const [makeApiCall, setMakeApiCall] = useState(false)
 
     const [resLists, setResLists] = useState([])
     const [searchText, setSearchText] = useState("")
@@ -36,30 +40,66 @@ const Body = () => {
     const MiniResCard = checkIt(RestaurantMiniCard)
     const RecipesCard = checkIt(Recipes)
 
-    //scrollHandler
-    const [prevScrollY, setPrevScrollY] = useState(0);
-    let flag = true
-    const scrollHandler = () =>{
-        
-        if(flag){
-            flag = false;
-            postData()
-            console.log("postData")
+
+    const debounce = (func, delay=500) =>{
+        let timer;
+
+        return function(){
+
+            clearTimeout(timer)
+            let args = arguments
+            let Content = this
+            timer = setTimeout(()=>{
+                // func.apply(Content, args)
+                resLists?.length > 0 && func.apply(Content, args)
+            }, delay)
         }
-        
     }
+    const getData = () => {
+        // Handle visibility
+        let resContainerVisibility, footerDataVisibility;
+        if (resContainerRef.current) {
+          const { top, bottom } = resContainerRef.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          resContainerVisibility = top < windowHeight && bottom >= 100;
+        }
+        if (footerDataRef.current) {
+          const { top, bottom } = footerDataRef.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          footerDataVisibility = top < windowHeight && bottom >= 0;
+        }
+      
+        const apiCall = resContainerVisibility && footerDataVisibility;
+        setMakeApiCall(apiCall);
+        if (apiCall) {
+          postData();
+        }
+      };
+    const scrollHandler = debounce(getData)
+
+    function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        }
+      }
+    function showPosition(position) {
+        setLocation(position)
+        // console.log(position)
+      }
 
     useEffect(() => {
+        getLocation()
         fetchData();
 
-        // postData()
-        //scroll eventHandler
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, []);
     const fetchData = async () => {
-        console.log("fetch Data")
+        url = `${API_START}lat=${location?.coords?.latitude}&lng=${location?.coords?.longitude}&${API_END}`
+        // console.log(location)
+        // console.log(url)
         const data = await fetch(corsproxy + SWIGGY_API);
+        // const data = await fetch(corsproxy + url);
 
         const json = await data.json();
         // console.log(json);
@@ -85,8 +125,6 @@ const Body = () => {
     // console.log(filteredList)
     // console.log("body render");
     const postData = async () =>{
-        console.log("resLists : ", resLists)
-        console.log("filteredList: ",filteredList)
 
         const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
         const data = await fetch(url, {
@@ -101,10 +139,11 @@ const Body = () => {
         const json = await data.json();
         payload.widgetOffset.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo = json?.data?.pageOffset?.widgetOffset?.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo;
 
-        console.log(json)
-        console.log(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        // console.log(json)
         setResLists(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
         setFilteredList(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
+        // console.log(makeApiCall)
+        setMakeApiCall(false);
     }
 
     const onlineStatus = useOnlineStatus();
@@ -112,10 +151,15 @@ const Body = () => {
         <h1>It's look like you are offline!!!</h1>
         <p>Please check your network connectivity...</p>
     </>
+
+    if(resLists?.length === 0) return <Shimmer />
     return (
-        resLists?.length === 0 ? <Shimmer />
+        !resLists ? <div className="flex justify-center">
+            <img src="https://cdn0.desidime.com/attachments/photos/936479/medium/Screenshot20230919-002343.png?1695064751" alt="unservisable"/>
+        </div>
             :
             <div className="body mt-44">
+            {console.log(resLists ? "A" : "B")}
                 <div className="filter m-4 p-4 flex justify-center">
                     <input data-testid="searchInput" type="text" className="p-2 m-4 border-2 border-solid border-black rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
                     <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
@@ -142,7 +186,7 @@ const Body = () => {
 
                 <hr className="mt-12 mb-4 mx-8"></hr>
                 <h3 className="font-bold text-lg ml-8 sm:ml-16 md:ml-32">Restaurants with online food delivery</h3>
-                <div className="flex flex-wrap justify-center">
+                <div className="flex flex-wrap justify-center" ref={resContainerRef}>
                     {
                         //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
                         filteredList?.map(restaurant => <Link style={{ color: "black", textDecoration: 'none' }} key={restaurant?.info?.id} to={"/restaurant/" + restaurant?.info?.id}>
@@ -156,7 +200,11 @@ const Body = () => {
                     }
                 </div>
 
-                <div>
+                {
+                    makeApiCall && <Shimmer />
+                }
+
+                <div ref={footerDataRef}>
                     <DataFooter bestPlace={bestPlace} bestCuisines={bestCuisines} exploreRestaurant={exploreRestaurant}/>
                     {/* <DataFooter {bestPlace, bestCuisines ,exploreRestaurant}/> */}
                 </div>
