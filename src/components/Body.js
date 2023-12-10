@@ -1,7 +1,7 @@
 import RestaurantCard, { withOfferLabel, withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
-import { SWIGGY_API, corsproxy } from "../utils/constants";
+import { SWIGGY_API, corsproxy, payload } from "../utils/constants";
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -11,6 +11,7 @@ import Recipes from "./Recipes";
 import Carousel from "./Carousel";
 import getRestaurantList from "../utils/getRestaurantList";
 import checkIt from "./CheckIt";
+import DataFooter from "./DataFooter";
 
 const Body = () => {
 
@@ -23,6 +24,10 @@ const Body = () => {
     const [topRestaurantChain, setTopRestaurantChain] = useState([])
     //
     const [recipes, setRecipes] = useState([])
+    //
+    const [bestPlace, setBestPlace] = useState([])
+    const [bestCuisines, setBestCuisines] = useState([])
+    const [exploreRestaurant, setExploreRestaurant] = useState([])
 
     //
     const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
@@ -33,18 +38,13 @@ const Body = () => {
 
     //scrollHandler
     const [prevScrollY, setPrevScrollY] = useState(0);
+    let flag = true
     const scrollHandler = () =>{
-        const threshold = 200;
-        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - threshold){
-            console.log('modified scroll handler')
-
-            const currentScrollY = window.scrollY || document.documentElement.scrollTop;
-            if (currentScrollY > prevScrollY + threshold) {
-                console.log("make api call")
-                const getData = getRestaurantList()
-                // getData()
-                setPrevScrollY(currentScrollY);
-              }
+        
+        if(flag){
+            flag = false;
+            postData()
+            console.log("postData")
         }
         
     }
@@ -52,15 +52,23 @@ const Body = () => {
     useEffect(() => {
         fetchData();
 
+        // postData()
         //scroll eventHandler
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, []);
     const fetchData = async () => {
+        console.log("fetch Data")
         const data = await fetch(corsproxy + SWIGGY_API);
 
         const json = await data.json();
         // console.log(json);
+
+        //update payload
+        payload.nextOffset = json?.data?.pageOffset?.nextOffset;
+        payload._csrf = json?.csrfToken;
+        payload.widgetOffset.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo = json?.data?.pageOffset?.widgetOffset?.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo;
+        
                                     //2 -> 5
         setResLists(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
         setFilteredList(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
@@ -68,9 +76,36 @@ const Body = () => {
 
         setTopRestaurantChain(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants)
         setRecipes(json?.data?.cards[1]?.card?.card?.imageGridCards?.info)
+
+        //
+        setBestPlace(json?.data?.cards[7]?.card?.card?.brands)
+        setBestCuisines(json?.data?.cards[8]?.card?.card?.brands)
+        setExploreRestaurant(json?.data?.cards[9]?.card?.card?.brands)
     }
     // console.log(filteredList)
     // console.log("body render");
+    const postData = async () =>{
+        console.log("resLists : ", resLists)
+        console.log("filteredList: ",filteredList)
+
+        const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
+        const data = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body : JSON.stringify(payload)
+        })
+
+        const json = await data.json();
+        payload.widgetOffset.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo = json?.data?.pageOffset?.widgetOffset?.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo;
+
+        console.log(json)
+        console.log(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        setResLists(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
+        setFilteredList(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
+    }
 
     const onlineStatus = useOnlineStatus();
     if (onlineStatus === false) return <>
@@ -120,6 +155,12 @@ const Body = () => {
                         </Link>)
                     }
                 </div>
+
+                <div>
+                    <DataFooter bestPlace={bestPlace} bestCuisines={bestCuisines} exploreRestaurant={exploreRestaurant}/>
+                    {/* <DataFooter {bestPlace, bestCuisines ,exploreRestaurant}/> */}
+                </div>
+
             </div>
     )
 }

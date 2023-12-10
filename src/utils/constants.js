@@ -8,3 +8,28 @@ export const SWIGGY_API = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=2
 export const MENU_API = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.244308353841273&lng=73.02032813218479&restaurantId=";
 
 export const corsproxy = "https://corsproxy.io/?"
+
+
+//more data
+export const payload = {
+    "lat": 24.585445,
+    "lng": 73.712479,
+    "nextOffset": "COVCELQ4KIDw8MCw6ZiAfDCnEzgB", //modify once at first post request
+    "widgetOffset": {
+        "NewListingView_Topical_Fullbleed": "",
+        "NewListingView_category_bar_chicletranking_TwoRows": "",
+        "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
+        "Restaurant_Group_WebView_SEO_PB_Theme": "",
+        "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": "40", //modify for every post request
+        "inlineFacetFilter": "",
+        "restaurantCountWidget": ""
+    },
+    "filters": {},
+    "seoParams": {
+        "seoUrl": "https://www.swiggy.com/",
+        "pageType": "FOOD_HOMEPAGE",
+        "apiName": "FoodHomePage"
+    },
+    "page_type": "DESKTOP_WEB_LISTING",
+    "_csrf": "7jcRw5JkjNFW-1JtbNtQwPu5M6m8Artb5E91nr20" //modify once at first post request
+}
