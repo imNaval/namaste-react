@@ -1,6 +1,7 @@
 import React from 'react'
 import { LOGO_URL } from '../utils/constants'
 import { Link } from 'react-router-dom'
+import logo from "../utils/images/logo.png"
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
             <img
                 className="w-20 mb-4"
                 alt="logo"
-                src={LOGO_URL}
+                src={logo}
             />
             <p>© 2023 NavFood,<br/> All right reserved</p>
         </div>

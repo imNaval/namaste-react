@@ -1,4 +1,4 @@
-// import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, { useEffect } from 'react'
 import { useSelector } from "react-redux";
 import MenuItemList from "./MenuItemList";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,11 @@ const Cart = () =>{
     const handleClearCart = () => {
         dispatch(clearCart())
     }
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    }, [])
+
     return(
         <div className="text-center m-4 p-4">
             <h1 className="font-bold text-xl">Cart</h1>

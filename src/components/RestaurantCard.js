@@ -12,7 +12,7 @@ const RestaurantCard = (props) => {
             />
             <h3 className="font-bold py-1 text-lg">{name}</h3>
             <h4>{avgRatingString}⭐ ratings</h4>
-            <h5>{cuisines.join(', ')}</h5>
+            <h5>{(cuisines.join(', ')).length > 60 ? cuisines.join(', ').substring(0, 60) : cuisines.join(', ')}</h5>
             <h5>{costForTwo}</h5>
             <h5>{time} minutes</h5>
         </div>

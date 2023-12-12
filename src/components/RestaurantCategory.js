@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuItemList from './MenuItemList'
 
 
 const RestaurantCategory = ({data, showItem, setShowIndex}) => {
     // console.log(data)
+
+    useEffect(()=> window.scrollTo(0,0), [])
 
     // const [showItem, setShowItem] = useState(false)
     const handleClick = () =>{

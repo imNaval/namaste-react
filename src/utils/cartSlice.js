@@ -7,7 +7,15 @@ const cartSlice = createSlice({
     },
     reducers : {
         addItem : (state, action) =>{
-            state.items.push(action.payload)
+            // state.items.push(action.payload)
+            let newItem = true;
+            state.items.map(item =>{
+                if(item?.card?.info?.id === action.payload?.card?.info?.id){
+                    item.quantity += 1;
+                    newItem = false;
+                }
+            })
+            newItem && state.items.push(action.payload)
         },
         removeItem : (state, action) =>{
             state.items.pop();

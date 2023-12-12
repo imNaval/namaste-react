@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { RES_LOGO } from '../utils/constants' //res-logo --> cdn_img
 import { useDispatch } from 'react-redux'
 import { addItem } from '../utils/cartSlice';
@@ -8,8 +8,10 @@ const MenuItemList = ({ items, addBtn=true }) => {
     const dispatch = useDispatch();
 
     const handleClick = (item) =>{
-        dispatch(addItem(item))
+        console.log(item)
+        dispatch(addItem({...item, quantity:1}))
     }
+    
 
     return (
         <div>
@@ -28,10 +30,10 @@ const MenuItemList = ({ items, addBtn=true }) => {
                             { item?.card?.info?.imageId && <img alt="food-image" className='w-full' src={RES_LOGO + item?.card?.info?.imageId} /> }
                             {!addBtn && <div className='absolute mx-12 px-2 top-1/2 font-bold bg-slate-50 text-gey-700 border-gray-200 border-2 rounded-lg shadow-lg'>Quantity</div> }
                         </div> */}
-                        <div className='w-3/12 p-4 relative'>
-                            {addBtn && <button className='absolute mx-12 px-2 py-1 font-bold bg-slate-50 text-green-700 border-gray-200 border-2 rounded-lg shadow-lg' onClick={() => handleClick(item)}>ADD +</button> }
+                        <div className='w-1/6 p-4 relative'>
+                            {addBtn && <button className='absolute ring-0 px-2 top-1/3 font-bold bg-slate-50 text-green-700 border-gray-200 border-2 rounded-lg shadow-lg' onClick={() => handleClick(item)}>ADD +</button> }
                             { item?.card?.info?.imageId && <img alt="food-image" className='w-full' src={RES_LOGO + item?.card?.info?.imageId} /> }
-                            {!addBtn && <div className='absolute mx-12 px-2 top-1/3 font-bold bg-slate-50 text-gey-700 border-gray-200 border-2 rounded-lg shadow-lg'>Quantity</div> }
+                            {!addBtn && <div className='absolute px-2 right-1 bottom-1 bg-slate-50 text-gey-700 border-gray-200 border-1 rounded-lg'>Quantity={item?.quantity}</div> }
                         </div>
                     </div>
                 ))

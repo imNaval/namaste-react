@@ -89,6 +89,9 @@ const Body = () => {
       }
 
     useEffect(() => {
+        //to scroll top
+        window.scrollTo(0, 0)
+
         getLocation()
         fetchData();
 
