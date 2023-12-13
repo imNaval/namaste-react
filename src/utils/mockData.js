@@ -1837,3 +1837,14 @@ export const restaurantData = [
         }
     }
 ]
+
+
+export const cityLocation = [
+    {
+        "cityName" : "abc",
+        "state": "xyz",
+        "latitude" : "12.3456",
+        "longitude" : "34.98765"
+    },
+]
+

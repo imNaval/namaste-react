@@ -164,6 +164,7 @@ const Body = () => {
         </div>
             :
             <div className="body mt-48">
+            {/* <div className="body pt-16 bg-slate-50"> */}
                 <div className="m-8">
                     <h2 className="text-2xl font-bold mb-4">What's on your mind?</h2>
                     <RecipesCard resData={recipes} />
