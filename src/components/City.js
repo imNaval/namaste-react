@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { FaXbox } from 'react-icons/fa'
 import { FaMap } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { setUserLocation } from '../utils/userSlice';
 import "../utils/Scrollbar.css"
 
-const City = ({handleVisible, setUserLocation}) => {
+const City = ({handleVisible}) => {
 
     const [searchLocation, setSearchLocation] = useState([])
+    const dispatch = useDispatch();
 
     function debounce(func, delay = 500){
         let timer;
@@ -32,16 +35,16 @@ const City = ({handleVisible, setUserLocation}) => {
           
               if (data.length > 0) {
                 const suggestions = data.map((result) => result.display_name);
-                console.log("city: ", data)
-                console.log('City Suggestions:', suggestions);
+                // console.log("city: ", data)
+                // console.log('City Suggestions:', suggestions);
                 setSearchLocation(data)
                 return suggestions;
               } else {
-                console.error('No suggestions found');
+                // console.error('No suggestions found');
                 return [];
               }
             } catch (error) {
-              console.error('Error fetching city suggestions:', error);
+              // console.error('Error fetching city suggestions:', error);
               return [];
             }
           };
@@ -58,13 +61,13 @@ const City = ({handleVisible, setUserLocation}) => {
 
         <div className='ml-24 mt-8'>
         {
-            searchLocation?.map(location => <div className='flex items-center mb-4 cursor-pointer'>
+            searchLocation?.map(location => <div key={location?.place_id} className='flex items-center mb-4 cursor-pointer'>
                 <FaMap className='mr-4' />
-                <div className=''>
-                    <h4 className='text-lg hover:text-orange-600' onClick={()=>{
-                        setUserLocation(location?.name)
-                        handleVisible(prev => !prev)
-                    }}>{location?.name}</h4>
+                <div onClick={()=>{
+                      dispatch(setUserLocation(location))
+                      handleVisible(prev => !prev)
+                  }}>
+                    <h4 className='text-lg hover:text-orange-600'>{location?.name}</h4>
                     <p className='text-xs text-gray-500'>{location.display_name}</p>
                     <p className='text-xs text-gray-500'>---------------------------------------------------------------------------</p>
                 </div>

@@ -12,10 +12,10 @@ import Carousel from "./Carousel";
 import getRestaurantList from "../utils/getRestaurantList";
 import checkIt from "./CheckIt";
 import DataFooter from "./DataFooter";
+import { useSelector } from "react-redux";
 
 const Body = () => {
 
-    const [location, setLocation] = useState(null)
     // const { loggedInUser, setUserName } = useContext(UserContext)
     const resContainerRef = useRef(null)
     const footerDataRef = useRef(null)
@@ -40,6 +40,10 @@ const Body = () => {
     const MiniResCard = checkIt(RestaurantMiniCard)
     const RecipesCard = checkIt(Recipes)
 
+    //
+    const userLocation = useSelector(store => store.user)
+    const {latitude, longitude} = userLocation
+// console.log(latitude, longitude)
 
     const debounce = (func, delay=500) =>{
         let timer;
@@ -78,33 +82,20 @@ const Body = () => {
       };
     const scrollHandler = debounce(getData)
 
-    function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        }
-      }
-    function showPosition(position) {
-        setLocation(position)
-        // console.log(position)
-      }
-
     useEffect(() => {
         //to scroll top
         window.scrollTo(0, 0)
-
-        getLocation()
         fetchData();
 
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
-    }, []);
+    }, [userLocation]);
 
     const fetchData = async () => {
-        url = `${API_START}lat=${location?.coords?.latitude}&lng=${location?.coords?.longitude}&${API_END}`
-        // console.log(location)
+        url = `${API_START}lat=${latitude}&lng=${longitude}&${API_END}`
         // console.log(url)
-        const data = await fetch(corsproxy + SWIGGY_API);
-        // const data = await fetch(corsproxy + url);
+        // const data = await fetch(corsproxy + SWIGGY_API);
+        const data = await fetch(corsproxy + url);
 
         const json = await data.json();
         // console.log(json);
@@ -127,8 +118,7 @@ const Body = () => {
         setBestCuisines(json?.data?.cards[8]?.card?.card?.brands)
         setExploreRestaurant(json?.data?.cards[9]?.card?.card?.brands)
     }
-    // console.log(filteredList)
-    // console.log("body render");
+
     const postData = async () =>{
 
         const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
@@ -176,15 +166,17 @@ const Body = () => {
                 </div>
 
                 <hr className="mt-16 mb-4 mx-8"></hr>
-                <div className="filter m-4 p-4 flex justify-center">
-                    <input data-testid="searchInput" type="text" className="p-2 m-4 w-[24rem] border-2 border-solid border-gray-500 rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
-                    <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
-                        const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
-                        setFilteredList(filteredRes)
-                    }} >Search</button>
-                    <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
-                        setFilteredList(resLists.filter(resData => resData?.info?.avgRating > 4))
-                    }}>Top Rated Restaurants</button>
+                <div className="filter m-4 p-4 md:flex justify-center">
+                    <input data-testid="searchInput" type="text" className="p-2 ml-[10%] sm:ml-[20%] md:ml-4 m-4 w-[24rem] border-2 border-solid border-gray-500 rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
+                    <div className="flex justify-center">
+                        <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
+                            const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
+                            setFilteredList(filteredRes)
+                        }} >Search</button>
+                        <button className="px-4 py-2 my-4 mx-8 bg-gray-100 rounded-lg" onClick={() => {
+                            setFilteredList(resLists.filter(resData => resData?.info?.avgRating > 4))
+                        }}>Top Rated Restaurants</button>
+                    </div>
                 </div>
 
                 <hr className="mt-8 mb-4 mx-8"></hr>

@@ -9,13 +9,13 @@ const RestaurantMiniCard = (props) =>{
             <img className="rounded-lg w-full h-40" alt="restaurant logo"
                 src={RES_LOGO + cloudinaryImageId}
             />
-            <h3 className="font-bold pt-1 text-md">{name}</h3>
+            <h3 className="font-bold pt-1 text-md">{name.length > 25 ? name.substring(0, 25) + "..." : name}</h3>
             <div className="flex font-bold">
                 <h4>⭐{avgRatingString}</h4>
                 <h5 className="pl-2"> •{time} minutes</h5>
             </div>
-            <h5>{cuisines.join(', ')}</h5>
-            
+            {/* <h5>{cuisines.join(', ')}</h5> */}
+            <h5>{(cuisines.join(', ')).length > 60 ? cuisines.join(', ').substring(0, 60) : cuisines.join(', ')}</h5>
         </div>
     )
 }

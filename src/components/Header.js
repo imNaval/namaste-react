@@ -21,9 +21,10 @@ const Header = () => {
     const { loggedInUser } = useContext(UserContext);
 
     const cartItem = useSelector((store) => store.cart.items)
+    const userCity = useSelector(store => store.user.cityName)
     // console.log(cartItem)
 
-    const [userLocation, setUserLocation] = useState("Udaipur, Rajasthan   " + "⬇️")
+    // const [userLocation, setUserLocation] = useState("Udaipur, Rajasthan   " + "⬇️")
     const [cityVisibility, setCityVisibility] = useState(false)
 
     return (
@@ -40,8 +41,8 @@ const Header = () => {
                 </Link>
 
                 <input className='p-4 text-lg hover:text-orange-500 cursor-pointer text-gray-500 rounded-lg outline-none bg-transparent underline'
-                    value={userLocation}
-                    onChange={(e)=> setUserLocation(e.target.value)}
+                    value={userCity}
+                    // onChange={(e)=> setUserLocation(e.target.value)}
                     onClick={()=> setCityVisibility(prev => !prev)}
                     readOnly={true}
                 />
@@ -66,7 +67,7 @@ const Header = () => {
 
             {/* {cityVisibility &&<City handleVisible={setCityVisibility} />} */}
             <div className={`transition-transform transform duration-500 ease-in-out ${cityVisibility ? 'translate-x-0' : '-translate-x-full'} bg-slate-100 p-4 absolute top-0 left-0`}>
-                <City handleVisible={setCityVisibility} setUserLocation={setUserLocation} />
+                <City handleVisible={setCityVisibility} />
             </div>
         </div>
     )
