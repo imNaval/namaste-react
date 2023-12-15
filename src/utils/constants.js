@@ -11,7 +11,9 @@ export const MENU_API = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_M
 
 export const UNSERVICEABLE_ERROR = "https://cdn0.desidime.com/attachments/photos/936479/medium/Screenshot20230919-002343.png?1695064751"
 
-export const corsproxy = "https://corsproxy.io/?"
+// export const corsproxy = "https://corsproxy.io/?"
+export const corsproxy = ""
+// export const corsproxy = "http://alloworigin.com/get?url="
 
 
 //more data

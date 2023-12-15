@@ -92,6 +92,7 @@ const Body = () => {
     }, [userLocation]);
 
     const fetchData = async () => {
+        try{
         url = `${API_START}lat=${latitude}&lng=${longitude}&${API_END}`
         // console.log(url)
         // const data = await fetch(corsproxy + SWIGGY_API);
@@ -117,10 +118,14 @@ const Body = () => {
         setBestPlace(json?.data?.cards[7]?.card?.card?.brands)
         setBestCuisines(json?.data?.cards[8]?.card?.card?.brands)
         setExploreRestaurant(json?.data?.cards[9]?.card?.card?.brands)
+        }
+        catch{
+            setResLists(null)
+        }
     }
 
     const postData = async () =>{
-
+        try{
         const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
         const data = await fetch(url, {
             method: 'POST',
@@ -139,6 +144,10 @@ const Body = () => {
         setFilteredList(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
         // console.log(makeApiCall)
         setMakeApiCall(false);
+        }
+        catch{
+            setMakeApiCall(false);
+        }
     }
 
     const onlineStatus = useOnlineStatus();
@@ -153,7 +162,7 @@ const Body = () => {
             <img src={UNSERVICEABLE_ERROR} alt="unservisable"/>
         </div>
             :
-            <div className="body mt-48">
+            <div className="body mt-48 overflow-x-hidden">
             {/* <div className="body pt-16 bg-slate-50"> */}
                 <div className="m-8">
                     <h2 className="text-2xl font-bold mb-4">What's on your mind?</h2>
