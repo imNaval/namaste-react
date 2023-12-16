@@ -70,7 +70,7 @@ const City = ({handleVisible, X}) => {
                   }}>
                     <h4 className='text-lg hover:text-orange-600'>{location?.name}</h4>
                     <p className='text-xs text-gray-500'>{location.display_name}</p>
-                    <p className='text-xs text-gray-500'>---------------------------------------------------------------------------</p>
+                    <p className='text-xs text-gray-500 overflow-hidden'>-------------------------------------------------------------------</p>
                 </div>
             </div>)
         }
