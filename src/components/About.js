@@ -21,8 +21,8 @@ class About extends Component{
     render(){
         // console.log("parent render")
         return (
-            <div>
-                <h1>I'm diving deep in rect with Namaste React🚀</h1>
+            <div className="text-center p-16">
+                <h1 className="text-lg mb-8">I'm diving deep in rect with Namaste React🚀</h1>
                 {/* <User name={"Naval"} /> */}
                 <UserClass name={"Naval (Class)"} />
 

@@ -65,7 +65,7 @@ const Header = () => {
             <div className="flex items-center">
             <button className="lg:hidden text-black focus:outline-none mr-8 " onClick={() => setMenuOpen(prev => !prev)}>{isMenuOpen ? <FaXmark className='w-8 h-8' /> : <FaBars className='w-8 h-8' />}</button>
                 {/* <ul className='flex p-4 m-4 '> */}
-                <ul className={`absolute lg:flex lg:static lg:bg-blue-50 m-8 mr-0 p-4 right-0 top-32 bg-pink-50 sm:bg-yellow-50 transform ${isMenuOpen  ? 'translate-x-0' : 'translate-x-full'} transition-transform ease-in-out`}>
+                <ul className={`fixed lg:flex lg:static lg:bg-blue-50 m-8 mr-0 p-4 right-0 top-7 xxxs:top-12 xxs-16 xs:top-32 bg-pink-50 sm:bg-yellow-50 transform ${isMenuOpen  ? 'translate-x-0' : 'translate-x-full'} transition-transform ease-in-out`}>
                     {/* <li className='px-4'><Link className='flex items-center' to='/search'><FaSearch /><span className='ml-2'>Search</span></Link></li> */}
                     <li className='px-4 flex items-center mb-4 lg:mb-0'><FaSearch /><span className='ml-2'>Search</span></li>
                     <li className='px-4 mb-4 lg:mb-0'>Online Status : {onlineStatus ? "✅" : "🔴"}</li>
@@ -82,7 +82,7 @@ const Header = () => {
 
             {/* {cityVisibility &&<City handleVisible={setCityVisibility} />} */}
             <div className={`transition-transform transform duration-500 ease-in-out ${cityVisibility ? 'translate-x-0' : '-translate-x-full'} bg-slate-100 p-4 absolute top-0 left-0`}>
-                <City handleVisible={setCityVisibility} />
+                <City handleVisible={setCityVisibility} X={FaXmark}/>
             </div>
         </div>
     )
