@@ -94,7 +94,7 @@ const Body = () => {
     const fetchData = async () => {
         try{
         url = `${API_START}lat=${latitude}&lng=${longitude}&${API_END}`
-        // console.log(url)
+        console.log(url)
         // const data = await fetch(corsproxy + SWIGGY_API);
         const data = await fetch(corsproxy + url);
 
