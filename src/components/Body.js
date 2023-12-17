@@ -86,7 +86,7 @@ const Body = () => {
         //to scroll top
         window.scrollTo(0, 0)
         fetchData();
-
+        console.log("useEffect triggered")
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, [userLocation]);
