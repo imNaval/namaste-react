@@ -3,7 +3,9 @@ export const LOGO_URL = "https://png.pngtree.com/png-clipart/20201208/original/p
 export const RES_LOGO = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
 export const SWIGGY_API = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.585445&lng=73.712479&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+// export const API_START = "https://www.swiggy.com/dapi/restaurants/list/v5?"
 export const API_START = "https://www.swiggy.com/dapi/restaurants/list/v5?"
+
 // // lat=24.585445&lng=73.712479
 export const API_END = "is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
 
@@ -11,9 +13,8 @@ export const MENU_API = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_M
 
 export const UNSERVICEABLE_ERROR = "https://cdn0.desidime.com/attachments/photos/936479/medium/Screenshot20230919-002343.png?1695064751"
 
-export const corsproxy = "https://corsproxy.io/?"
-// export const corsproxy = ""
-// export const corsproxy = "http://alloworigin.com/get?url="
+
+export const corsproxy = "https://thingproxy.freeboard.io/fetch/"
 
 
 //more data
@@ -39,3 +40,12 @@ export const payload = {
     "page_type": "DESKTOP_WEB_LISTING",
     "_csrf": "7jcRw5JkjNFW-1JtbNtQwPu5M6m8Artb5E91nr20" //modify once at first post request
 }
+
+//https://corsproxy.io/?
+//https://cors-anywhere.herokuapp.com/"
+//https://thingproxy.freeboard.io/fetch/
+//https://cors-proxy.htmldriven.com/?url=
+
+export const SERVER_URL = "https://coder-food-server-imnaval.vercel.app"
+// export const SERVER_URL = "http://localhost:3000"
+

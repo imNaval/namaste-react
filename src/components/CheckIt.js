@@ -34,14 +34,14 @@ const checkIt = ( Component ) => {
                 let context = this
                 clearTimeout(timer)
                 timer = setTimeout(() => {
-                    console.log(Math.floor(innerWidth/(length*5)))
+                    // console.log(Math.floor(innerWidth/(length*5)))
                     setMove(Math.floor(innerWidth/(length*5)))
                 }, delay);
             }
         }
         const handleResize = debounce(setMove)
         useEffect(()=>{
-            console.log(move)
+            // console.log(move)
             window.addEventListener('resize', handleResize)
             return () => window.removeEventListener('resize', handleResize)
         }, [])

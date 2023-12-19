@@ -9,7 +9,7 @@ const User = (props) =>{
         // console.log("useEffect called");
 
         const timer = setInterval(()=>{
-            console.log("Namaste React🚀");
+            // console.log("Namaste React🚀");
         }, 1000)
 
         return ()=>{
@@ -18,7 +18,7 @@ const User = (props) =>{
         }
     },[])
 
-    console.log("render component");
+    // console.log("render component");
     return(
         <div className="user-container">
             <div>

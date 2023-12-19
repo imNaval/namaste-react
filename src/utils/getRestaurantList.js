@@ -83,7 +83,7 @@ return async function postData() {
     });
     const json = await response.json();
 
-    console.log(json)
+    // console.log(json)
   }
 
 

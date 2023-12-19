@@ -28,7 +28,7 @@ const Header = () => {
 
     // const [userLocation, setUserLocation] = useState("Udaipur, Rajasthan   " + "⬇️")
     const [cityVisibility, setCityVisibility] = useState(false)
-    const [isMenuOpen, setMenuOpen] = useState(true);
+    const [isMenuOpen, setMenuOpen] = useState(window.innerWidth > "1020"); //true
 
     const handleResize = ()=>{
         if(window.innerWidth > "1024"){
@@ -71,12 +71,15 @@ const Header = () => {
                     <li className='px-4 mb-4 lg:mb-0'>Online Status : {onlineStatus ? "✅" : "🔴"}</li>
                     <li className='px-4 mb-4 lg:mb-0'><Link to='/grocery'>Grocery</Link></li>
                     <li className='px-4 relative mb-4 lg:mb-0'><Link to='/cart'><FaCartPlus className='h-6 w-6' /><span className='absolute -top-4 left-8 text-gray-400'>{cartItem.length}</span></Link></li>
-                    <button className='login-btn min-w-[4rem] mb-4 md:mb-0'
-                        onClick={()=>{
-                            userStatus === "Login" ? setUserStatus("Logout") : setUserStatus("Login");
-                        }}
-                    >{userStatus}</button>
-                    <li className='px-4 absolute right-0 top-8'>{ userStatus === "Login" ? "" : "User :"+ loggedInUser}</li>
+                    <li className='relative w-28'>
+                        <button className='login-btn min-w-[4rem] mb-8 lg:mb-0'
+                            onClick={()=>{
+                                userStatus === "Login" ? setUserStatus("Logout") : setUserStatus("Login");
+                            }}
+                        >{userStatus}</button>
+                        <p className='absolute left-0 top-8'>{ userStatus === "Login" ? "" : "User :"+ loggedInUser}</p>
+                    </li>
+                    
                 </ul>
             </div>
 

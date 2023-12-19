@@ -8,7 +8,7 @@ const MenuItemList = ({ items, addBtn=true }) => {
     const dispatch = useDispatch();
 
     const handleClick = (item) =>{
-        console.log(item)
+        // console.log(item)
         dispatch(addItem({...item, quantity:1}))
     }
     

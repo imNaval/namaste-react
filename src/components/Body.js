@@ -1,7 +1,7 @@
 import RestaurantCard, { withOfferLabel, withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { restaurantData } from "../utils/mockData";
-import { API_END, API_START, SWIGGY_API, UNSERVICEABLE_ERROR, corsproxy, payload } from "../utils/constants";
+import { API_END, API_START, SWIGGY_API, UNSERVICEABLE_ERROR, corsproxy, payload, SERVER_URL } from "../utils/constants";
 import { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -86,7 +86,7 @@ const Body = () => {
         //to scroll top
         window.scrollTo(0, 0)
         fetchData();
-        console.log("useEffect triggered")
+        // console.log("useEffect triggered")
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, [userLocation]);
@@ -94,9 +94,9 @@ const Body = () => {
     const fetchData = async () => {
         try{
         const url = `${API_START}lat=${latitude}&lng=${longitude}&${API_END}`
-        console.log(url)
-        // const data = await fetch(corsproxy + SWIGGY_API);
-        const data = await fetch(corsproxy + url);
+        // console.log(url)
+        // const data = await fetch(corsproxy +  SWIGGY_API)
+        const data = await fetch(`${SERVER_URL}/api/swiggy/getData?lat=${latitude}&lng=${longitude}`)
 
         const json = await data.json();
         // console.log(json);
@@ -126,7 +126,8 @@ const Body = () => {
 
     const postData = async () =>{
         try{
-        const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
+        // const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
+        const url = SERVER_URL + "/api/swiggy/update"
         const data = await fetch(url, {
             method: 'POST',
             headers: {
