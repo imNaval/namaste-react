@@ -13,7 +13,7 @@ const useRestaurantMenu = (resId) => {
 
         fetchData();
     }, [])
-    fetchData = async()=>{
+    const fetchData = async()=>{
         // const data = await fetch(corsproxy + MENU_API + resId)
         const data = await fetch(`${SERVER_URL}/api/swiggy/getMenu?lat=${latitude}&lng=${longitude}&restaurantId=${resId}`)
 
