@@ -177,7 +177,7 @@ const Body = () => {
 
                 <hr className="mt-16 mb-4 mx-8"></hr>
                 <div className="filter m-4 p-4 md:flex justify-center">
-                    <input data-testid="searchInput" type="text" className="p-2 ml-[10%] sm:ml-[20%] md:ml-4 m-4 w-[24rem] border-2 border-solid border-gray-500 rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
+                    <input data-testid="searchInput" type="text" className="p-2 ml-[10%] sm:ml-[20%] md:ml-4 m-4 w-[16rem] sm:w-[24rem] border-2 border-solid border-gray-500 rounded-xl" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} />
                     <div className="flex justify-center">
                         <button className="px-4 py-2 my-4 bg-green-100 rounded-lg" onClick={() => {
                             const filteredRes = resLists?.filter((res) => (res?.info?.name.toLowerCase().includes(searchText.toLowerCase()) || res?.info?.cuisines.join(',').toLowerCase().includes(searchText.toLowerCase())));
