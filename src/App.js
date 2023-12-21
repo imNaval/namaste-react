@@ -32,7 +32,7 @@ const AppLayout = () => {
             <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
                 <div className="app">
                     <Header />
-                    <div className="mt-44"><Outlet /></div>
+                    <div className="mt-16 xxs:mt-28 xs:mt-40"><Outlet /></div>
                     {/* <Body /> */}
 
                     <Footer />

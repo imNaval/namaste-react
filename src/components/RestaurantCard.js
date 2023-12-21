@@ -10,7 +10,7 @@ const RestaurantCard = (props) => {
             <img className="rounded-lg w-full h-40" alt="restaurant logo"
                 src={RES_LOGO + cloudinaryImageId}
             />
-            <h3 className="font-bold py-1 text-lg">{name}</h3>
+            <h3 className="sm:font-bold py-1 text-xl sm:text-lg">{name}</h3>
             <h4>{avgRatingString}⭐ ratings</h4>
             <h5>{(cuisines.join(', ')).length > 60 ? cuisines.join(', ').substring(0, 60) : cuisines.join(', ')}</h5>
             <div className="invisible md:visible">

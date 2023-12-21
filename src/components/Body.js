@@ -163,15 +163,15 @@ const Body = () => {
             <img src={UNSERVICEABLE_ERROR} alt="unservisable"/>
         </div>
             :
-            <div className="body mt-48 overflow-x-hidden">
+            <div className="body mt-0 overflow-x-hidden">
             {/* <div className="body pt-16 bg-slate-50"> */}
                 <div className="m-8">
-                    <h2 className="text-2xl font-bold mb-4">What's on your mind?</h2>
+                    <h2 className="text-2xl sm:font-bold mb-4">What's on your mind?</h2>
                     <RecipesCard resData={recipes} />
                 </div>
 
                 <div className="m-8">
-                    <h2 className="text-2xl font-bold mb-4">Top Restaurant Chain</h2>
+                    <h2 className="text-2xl sm:font-bold mb-4">Top Restaurant Chain</h2>
                     <MiniResCard resData={topRestaurantChain}/>
                 </div>
 
@@ -190,7 +190,7 @@ const Body = () => {
                 </div>
 
                 <hr className="mt-8 mb-4 mx-8"></hr>
-                <h3 className="font-bold text-2xl ml-8 sm:ml-16 md:ml-24">Restaurants with online food delivery</h3>
+                <h3 className="sm:font-bold text-2xl ml-8 sm:ml-16 md:ml-24">Restaurants with online food delivery</h3>
                 <div className="flex flex-wrap justify-center" ref={resContainerRef}>
                     {
                         //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
