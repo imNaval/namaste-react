@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createHashRouter, createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from "./components/About";
@@ -43,7 +43,8 @@ const AppLayout = () => {
 }
 
 
-const appRouter = createBrowserRouter([
+// const appRouter = createBrowserRouter([
+const appRouter = createHashRouter([
     {
         path: "/",
         element: <AppLayout />,
