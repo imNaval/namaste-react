@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
+import PaymentInfo from "./components/PaymentInfo";
 // import Grocery from "./components/Grocery";
 
 const Grocery = lazy(() => import("./components/Grocery"))
@@ -74,6 +75,10 @@ const appRouter = createHashRouter([
             {
                 path: "/cart",
                 element: <Cart />
+            },
+            {
+                path : "/payment",
+                element: <PaymentInfo />
             },
         ],
         errorElement: <Error />

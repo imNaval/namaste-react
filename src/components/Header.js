@@ -5,13 +5,14 @@ import { LOGO_URL } from '../utils/constants'
 import useOnlineStatus from '../utils/useOnlineStatus'
 import UserContext from '../utils/UserContext'
 // import { useSelector } from 'react-redux/es/hooks/useSelector'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaCartPlus } from 'react-icons/fa';
 import logo from "../utils/images/logo.png"
 import { FaSearch } from 'react-icons/fa';
-import { FaBars, FaXing } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
 import { FaXmark } from "react-icons/fa6";
 import City from './City'
+import { addItem } from '../utils/cartSlice'
 
 
 const Header = () => {
@@ -26,6 +27,8 @@ const Header = () => {
     const userCity = useSelector(store => store.user.cityName)
     // console.log(cartItem)
 
+    const dispatch = useDispatch();
+
     // const [userLocation, setUserLocation] = useState("Udaipur, Rajasthan   " + "⬇️")
     const [cityVisibility, setCityVisibility] = useState(false)
     const [isMenuOpen, setMenuOpen] = useState(window.innerWidth > "1020"); //true
@@ -36,7 +39,18 @@ const Header = () => {
             setMenuOpen(true)
         }
     }
+    const updateCart = async() =>{
+        //update cart from local storage
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const data = JSON.parse(localStorage.getItem(key))
+            // console.log(data)
+            dispatch(addItem(data))
+        }
+    }
     useEffect(()=>{
+        updateCart();
+
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
 

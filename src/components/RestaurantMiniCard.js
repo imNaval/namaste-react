@@ -12,7 +12,7 @@ const RestaurantMiniCard = (props) =>{
             <h3 className="sm:font-bold pt-1 text-md">{name.length > 25 ? name.substring(0, 25) + "..." : name}</h3>
             <div className="flex font-bold invisible sm:visible">
                 <h4>⭐{avgRatingString}</h4>
-                <h5 className="pl-2"> •{time} minutes</h5>
+                <h5 className="pl-2"> •{time}</h5>
             </div>
             {/* <h5>{cuisines.join(', ')}</h5> */}
             <h5 className="invisible lg:visible">{(cuisines.join(', ')).length > 60 ? cuisines.join(', ').substring(0, 60) : cuisines.join(', ')}</h5>
