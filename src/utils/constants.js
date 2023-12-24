@@ -46,6 +46,31 @@ export const payload = {
 //https://thingproxy.freeboard.io/fetch/
 //https://cors-proxy.htmldriven.com/?url=
 
-export const SERVER_URL = "https://coder-food-server-imnaval.vercel.app"
-// export const SERVER_URL = "http://localhost:3000"
+// export const SERVER_URL = "https://coder-food-server-imnaval.vercel.app"
+export const SERVER_URL = "http://localhost:3000"
 
+
+export const payloadForRecipes = {
+    "lat": 24.585445,
+    "lng": 73.712479,
+    "nextOffset": "COVCELQ4KIDw8MCw6ZiAfDCnEzgB", //modify once at first post request
+    "widgetOffset": {
+        "collectionV5MastheadWidget": "",
+        "collectionV5RestaurantListWidget_SimRestoRelevance_food": "23",
+        "inlineFacetFilter": "",
+        "restaurantCountWidget": ""
+    },
+    "collection": "83645",
+    "filters": "",
+    "page_type": null,
+    "sortBy": "",
+    "tags": "layout_CCS_NorthIndian",
+    "type": "rcv2",
+    "seoParams": {
+        "seoUrl": "https://www.swiggy.com/",
+        "pageType": "FOOD_HOMEPAGE",
+        "apiName": "FoodHomePage"
+    },
+    "page_type": "DESKTOP_WEB_LISTING",
+    "_csrf": "7jcRw5JkjNFW-1JtbNtQwPu5M6m8Artb5E91nr20" //modify once at first post request
+}

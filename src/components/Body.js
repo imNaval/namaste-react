@@ -45,7 +45,7 @@ const Body = () => {
     const {latitude, longitude} = userLocation
 // console.log(latitude, longitude)
 
-    const debounce = (func, delay=500) =>{
+    const debounce = (func, delay=300) =>{
         let timer;
 
         return function(){
@@ -66,7 +66,7 @@ const Body = () => {
         if (resContainerRef.current) {
           const { top, bottom } = resContainerRef.current.getBoundingClientRect();
           const windowHeight = window.innerHeight;
-          resContainerVisibility = top < windowHeight && bottom >= 100;
+          resContainerVisibility = top < windowHeight && bottom >= 120;
         }
         if (footerDataRef.current) {
           const { top, bottom } = footerDataRef.current.getBoundingClientRect();

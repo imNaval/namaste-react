@@ -11,6 +11,7 @@ class About extends Component{
     }
 
     componentDidMount(){
+        window.scrollTo(0,0)
         // console.log("parent did mount")
     }
 

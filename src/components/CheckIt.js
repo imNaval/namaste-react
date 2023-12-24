@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import React, { useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import RestaurantMiniCard from './RestaurantMiniCard';
 
 const checkIt = ( Component ) => {
@@ -54,13 +54,18 @@ const checkIt = ( Component ) => {
                         style={{ transform: `translateX(-${currentIndex * (100 / move)}%)` }}
                     >
 
+                    {/*
                         {
                             resData?.map(restaurant => <Link style={{ color: "black", textDecoration: 'none' }} key={restaurant?.info?.id || restaurant.id} to={"/restaurant/" + restaurant?.info?.id}>
                                 {
                                     <Component resData={restaurant} />
                                 }
                             </Link>)
-                        }
+                        } */}
+
+                    {
+                        resData?.map(data => <div  key={data?.info?.id || data.id}> <Component resData={data} /> </div>)
+                    }
 
                     </div>
                 </div>

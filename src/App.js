@@ -13,6 +13,7 @@ import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
 import PaymentInfo from "./components/PaymentInfo";
+import RecipesRestaurant from "./components/RecipesRestaurant";
 // import Grocery from "./components/Grocery";
 
 const Grocery = lazy(() => import("./components/Grocery"))
@@ -33,7 +34,7 @@ const AppLayout = () => {
             <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
                 <div className="app">
                     <Header />
-                    <div className="mt-16 xxs:mt-28 xs:mt-40"><Outlet /></div>
+                    <div className="mt-16 xs:mt-24"><Outlet /></div>
                     {/* <Body /> */}
 
                     <Footer />
@@ -80,6 +81,10 @@ const appRouter = createHashRouter([
                 path : "/payment",
                 element: <PaymentInfo />
             },
+            {
+                path: "/collection/:query",
+                element: <RecipesRestaurant />
+            }
         ],
         errorElement: <Error />
     },
