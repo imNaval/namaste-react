@@ -46,8 +46,8 @@ export const payload = {
 //https://thingproxy.freeboard.io/fetch/
 //https://cors-proxy.htmldriven.com/?url=
 
-// export const SERVER_URL = "https://coder-food-server-imnaval.vercel.app"
-export const SERVER_URL = "http://localhost:3000"
+export const SERVER_URL = "https://coder-food-server-imnaval.vercel.app"
+// export const SERVER_URL = "http://localhost:3000"
 
 
 export const payloadForRecipes = {
