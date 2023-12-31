@@ -106,13 +106,15 @@ const Body = () => {
         payload._csrf = json?.csrfToken;
         payload.widgetOffset.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo = json?.data?.pageOffset?.widgetOffset?.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo;
         
-                                    //2 -> 5
-        setResLists(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
-        setFilteredList(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+
+        //swiggy changed response formate
+                                    //2 -> 5 -> 1
+        setResLists(json?.data?.cards[4]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+        setFilteredList(json?.data?.cards[4]?.card?.card.gridElements?.infoWithStyle?.restaurants);
         // setFilteredList(resLists)  //why this will not work?
 
-        setTopRestaurantChain(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants)
-        setRecipes(json?.data?.cards[1]?.card?.card?.imageGridCards?.info)
+        setTopRestaurantChain(json?.data?.cards[1]?.card?.card.gridElements?.infoWithStyle?.restaurants)
+        setRecipes(json?.data?.cards[0]?.card?.card?.imageGridCards?.info)
 
         //
         setBestPlace(json?.data?.cards[7]?.card?.card?.brands)
