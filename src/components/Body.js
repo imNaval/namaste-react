@@ -15,7 +15,6 @@ import DataFooter from "./DataFooter";
 import { useSelector } from "react-redux";
 
 const Body = () => {
-
     // const { loggedInUser, setUserName } = useContext(UserContext)
     const resContainerRef = useRef(null)
     const footerDataRef = useRef(null)
@@ -24,26 +23,21 @@ const Body = () => {
     const [resLists, setResLists] = useState([])
     const [searchText, setSearchText] = useState("")
     const [filteredList, setFilteredList] = useState([])
-    //
+
     const [topRestaurantChain, setTopRestaurantChain] = useState([])
-    //
     const [recipes, setRecipes] = useState([])
-    //
     const [bestPlace, setBestPlace] = useState([])
     const [bestCuisines, setBestCuisines] = useState([])
     const [exploreRestaurant, setExploreRestaurant] = useState([])
 
-    //
     const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
     const RestaurantCardOffer = withOfferLabel(RestaurantCard);
-    //
+
     const MiniResCard = checkIt(RestaurantMiniCard)
     const RecipesCard = checkIt(Recipes)
 
-    //
     const userLocation = useSelector(store => store.user)
     const {latitude, longitude} = userLocation
-// console.log(latitude, longitude)
 
     const debounce = (func, delay=300) =>{
         let timer;
@@ -86,7 +80,6 @@ const Body = () => {
         //to scroll top
         window.scrollTo(0, 0)
         fetchData();
-        // console.log("useEffect triggered")
         window.addEventListener('scroll', scrollHandler)
         return () => window.removeEventListener('scroll', scrollHandler)
     }, [userLocation]);
@@ -94,12 +87,10 @@ const Body = () => {
     const fetchData = async () => {
         try{
         const url = `${API_START}lat=${latitude}&lng=${longitude}&${API_END}`
-        // console.log(url)
-        // const data = await fetch(corsproxy +  SWIGGY_API)
         const data = await fetch(`${SERVER_URL}/api/swiggy/getData?lat=${latitude}&lng=${longitude}`)
 
         const json = await data.json();
-        // console.log(json);
+        console.log(json);
 
         //update payload
         payload.nextOffset = json?.data?.pageOffset?.nextOffset;
@@ -108,15 +99,14 @@ const Body = () => {
         
 
         //swiggy changed response formate
-                                    //2 -> 5 -> 1 -> 4 -> 5
-        setResLists(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
-        setFilteredList(json?.data?.cards[5]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+                                    //2 -> 5 -> 1 -> 4 -> 5 ->
+        setResLists(json?.data?.cards[4]?.card?.card.gridElements?.infoWithStyle?.restaurants);
+        setFilteredList(json?.data?.cards[4]?.card?.card.gridElements?.infoWithStyle?.restaurants);
         // setFilteredList(resLists)  //why this will not work?
 
-        setTopRestaurantChain(json?.data?.cards[2]?.card?.card.gridElements?.infoWithStyle?.restaurants)
-        setRecipes(json?.data?.cards[1]?.card?.card?.imageGridCards?.info)
+        setTopRestaurantChain(json?.data?.cards[1]?.card?.card.gridElements?.infoWithStyle?.restaurants)
+        setRecipes(json?.data?.cards[0]?.card?.card?.imageGridCards?.info)
 
-        //
         setBestPlace(json?.data?.cards[7]?.card?.card?.brands)
         setBestCuisines(json?.data?.cards[8]?.card?.card?.brands)
         setExploreRestaurant(json?.data?.cards[9]?.card?.card?.brands)
@@ -128,7 +118,6 @@ const Body = () => {
 
     const postData = async () =>{
         try{
-        // const url = corsproxy + "https://www.swiggy.com/dapi/restaurants/list/update"
         const url = SERVER_URL + "/api/swiggy/update"
         const data = await fetch(url, {
             method: 'POST',
@@ -142,10 +131,8 @@ const Body = () => {
         const json = await data.json();
         payload.widgetOffset.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo = json?.data?.pageOffset?.widgetOffset?.collectionV5RestaurantListWidget_SimRestoRelevance_food_seo;
 
-        // console.log(json)
         setResLists(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
         setFilteredList(prev => [...prev, ...(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants)])
-        // console.log(makeApiCall)
         setMakeApiCall(false);
         }
         catch{
@@ -166,7 +153,6 @@ const Body = () => {
         </div>
             :
             <div className="body mt-0 overflow-x-hidden">
-            {/* <div className="body pt-16 bg-slate-50"> */}
                 <div className="m-8">
                     <h2 className="text-2xl sm:font-bold mb-4">What's on your mind?</h2>
                     <RecipesCard resData={recipes} />
@@ -197,7 +183,6 @@ const Body = () => {
                     {
                         //filteredList?.map(restaurant => <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />)
                         filteredList?.map(restaurant => <Link style={{ color: "black", textDecoration: 'none' }} key={restaurant?.info?.id} to={"/restaurant/" + restaurant?.info?.id}>
-                            {/* <RestaurantCard resData={restaurant} /> */}
                             {
                                 //restaurant.info.promoted ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />
                                 ("aggregatedDiscountInfoV3" in restaurant?.info) ? <RestaurantCardOffer resData={restaurant} /> : <RestaurantCard resData={restaurant} />
@@ -213,9 +198,7 @@ const Body = () => {
 
                 <div ref={footerDataRef}>
                     <DataFooter bestPlace={bestPlace} bestCuisines={bestCuisines} exploreRestaurant={exploreRestaurant}/>
-                    {/* <DataFooter {bestPlace, bestCuisines ,exploreRestaurant}/> */}
                 </div>
-
             </div>
     )
 }
