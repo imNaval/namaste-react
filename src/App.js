@@ -84,7 +84,7 @@ const appRouter = createHashRouter([
             {
                 path: "/collection/:query",
                 element: <RecipesRestaurant />
-            }
+            },
         ],
         errorElement: <Error />
     },
