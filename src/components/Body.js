@@ -90,7 +90,7 @@ const Body = () => {
         const data = await fetch(`${SERVER_URL}/api/swiggy/getData?lat=${latitude}&lng=${longitude}`)
 
         const json = await data.json();
-        console.log(json);
+        // console.log(json);
 
         //update payload
         payload.nextOffset = json?.data?.pageOffset?.nextOffset;

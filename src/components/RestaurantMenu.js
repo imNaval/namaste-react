@@ -18,11 +18,13 @@ const RestaurantMenu = () => {
 
     if(resInfo == null) return <Shimmer />
 
-    const { name, costForTwoMessage, cuisines } = resInfo?.cards[0]?.card?.card?.info
-    const {itemCards} = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
+    const { name, costForTwoMessage, cuisines } = resInfo?.cards[2]?.card?.card?.info //0 >> 2
+    //const {itemCards} = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
+    const {itemCards} = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card
     // console.log(itemCards)
-
-    const categories = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c?.card?.card?.["@type"].includes(".ItemCategory")) //there is also sub-category so we need to handle it .. latter i will do it ********
+    
+        // 2 >> 4
+    const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(c => c?.card?.card?.["@type"].includes(".ItemCategory")) //there is also sub-category so we need to handle it .. latter i will do it ********
     // console.log(categories)
 
   return (
