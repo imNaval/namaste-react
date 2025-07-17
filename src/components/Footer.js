@@ -17,7 +17,7 @@ const Footer = () => {
         <div className='pb-16'>
             <h2 className='font-bold text-lg mb-3 md:mb-8'>Company</h2>
             <p className='text-lg'><Link to='/about'>About Me</Link></p>
-            <p className='text-lg'> Visit my <a className='hover:text-orange-600' href='https://portfolio-five-coral.vercel.app/'>personal website </a> to know more about me </p>
+            <p className='text-lg'> Visit my <a className='hover:text-orange-600' href='https://naval.learnjavascript.in/' target="_blank" rel="noopener noreferrer">personal website </a> to know more about me </p>
         </div>
         <div className='pb-16'>
             <h2 className='font-bold text-lg mb-3 md:mb-8'><Link to="/contact">Contact Us</Link></h2>
